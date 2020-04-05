@@ -1,17 +1,17 @@
-import { Component, Prop, Event, EventEmitter, State, Method, Element } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, State, Method, Element, h } from '@stencil/core';
 import { Validator, getValidator, defaultValidator, ValidatorEntry } from '../../validators';
 
 import anime from 'animejs'
 
 @Component({
   tag: 'animated-input',
-  styleUrl: 'animated-input.scss',
+  styleUrl: 'animated-input.css',
   scoped: true,
   shadow: false
 })
 export class AnimatedInput {
 
-  @Prop({mutable: true}) value: string;
+  @Prop({ mutable: true }) value: string;
 
   @Prop() validator: Array<string | ValidatorEntry | Validator<string>>;
 
@@ -59,19 +59,19 @@ export class AnimatedInput {
   render() {
     this.validate();
     return (
-        <div class={'outer-container ' + (this.isValid ? 'valid' : 'invalid')}>
-          <div class="input-row">
-            <div class="input-container">
-              <input value={this.value} onInput={(ev) => this.handleChange(ev)}/>    
-            </div>
-            <div class="status">
-              <img src={this.isValid ? 'assets/checkmark.svg'  : 'assets/cross.svg'} />
-            </div>
+      <div class={'outer-container ' + (this.isValid ? 'valid' : 'invalid')}>
+        <div class="input-row">
+          <div class="input-container">
+            <input value={this.value} onInput={(ev) => this.handleChange(ev)} />
           </div>
-          {!this.isValid ? 
-            <span class="validation-error">{this._validator.errorMessage}</span>
-          : null }
+          <div class="status">
+            <img src={this.isValid ? 'assets/checkmark.svg' : 'assets/cross.svg'} />
+          </div>
         </div>
+        {!this.isValid ?
+          <span class="validation-error">{this._validator.errorMessage}</span>
+          : null}
+      </div>
     );
   }
 }

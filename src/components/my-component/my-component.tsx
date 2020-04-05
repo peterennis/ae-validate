@@ -1,14 +1,14 @@
-import { Component, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter, h } from '@stencil/core';
 import { Validator, getValidator, defaultValidator, ValidatorEntry } from '../../validators';
 
 @Component({
   tag: 'my-component',
-  styleUrl: 'my-component.scss',
+  styleUrl: 'my-component.css',
   shadow: true
 })
 export class MyComponent {
 
-  @Prop({mutable: true}) value: string;
+  @Prop({ mutable: true }) value: string;
 
   @Prop() validator: Array<string | ValidatorEntry | Validator<string>>;
 
@@ -31,14 +31,14 @@ export class MyComponent {
 
   render() {
     return (
-        <div>
-          <div class="input-container">
-            <input value={this.value} onInput={(ev) => this.handleChange(ev)}/>          
-          </div>
-          {!this._validator.validate(this.value) ? 
-            <span class="validation-error">{this._validator.errorMessage}</span>
-          : null }
+      <div>
+        <div class="input-container">
+          <input value={this.value} onInput={(ev) => this.handleChange(ev)} />
         </div>
+        {!this._validator.validate(this.value) ?
+          <span class="validation-error">{this._validator.errorMessage}</span>
+          : null}
+      </div>
     );
   }
 }
